@@ -1,8 +1,8 @@
+import { useCart } from "../../contexts/CartContext"
 
-import { useAuth } from "../../contexts/AuthContext"
 
 export const LogoutButton = () => {
-    const { setUser } = useAuth()
+    const { setCart } = useCart()
 
     const handleLogout = async () => {
         try {
@@ -11,16 +11,19 @@ export const LogoutButton = () => {
                 credentials: "include"
             })
 
-            const data = await response.json()
+
             if (response.ok) {
+                setCart([]);
+                localStorage.removeItem('cart');
                 console.log("logout successful")
             } else {
-                console.error('Logout failed', data)
+                console.error('Logout failed')
             }}
 
             catch (error) {
                 console.error('Network error', error)
             }
+           
         }
         
         return <>

@@ -1,8 +1,11 @@
 export interface IProductCard {
-    id: string,
-    product: {name: string,
-    default_price: string,
-    images: string},
-    unit_amount: number,
-    currency: string
+  id: string;
+  currency: string;
+  unit_amount: number;
+  product: { 
+    id: string; 
+    name: string; 
+    active: boolean;
+    default_price: string; 
+    images: string[] };
 }
