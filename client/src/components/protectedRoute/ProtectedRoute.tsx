@@ -7,9 +7,12 @@ interface IProtectedRouteProps {
     children: ReactNode
 }
 export const ProtectedRoute = ({children}: IProtectedRouteProps) => {
-    const {user} = useAuth() 
+    const {user, isLoading} = useAuth() 
+    console.log("User in ProtectedRoute:", user); 
 
-    return <>
-     {user ? children : <Navigate to = "/" />}
-    </>
+    if (isLoading) {
+        return <div>Loading...</div>
+    }
+
+    return user ? children : <Navigate to = "/" />
 }

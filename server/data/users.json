@@ -30,5 +30,37 @@
       "tax_exempt": "none",
       "test_clock": null
     }
+  },
+  {
+    "email": "chipspose@live.se",
+    "password": "$2b$15$U.YBvNNefpUSiKvhbFZrqOpaCJ78G0WvHzmWXnkGSjXerlyPXvQcy",
+    "stripeCustomerId": {
+      "id": "cus_Pt86wwagIK5eRO",
+      "object": "customer",
+      "address": null,
+      "balance": 0,
+      "created": 1712596706,
+      "currency": null,
+      "default_source": null,
+      "delinquent": false,
+      "description": null,
+      "discount": null,
+      "email": "chipspose@live.se",
+      "invoice_prefix": "47CC7570",
+      "invoice_settings": {
+        "custom_fields": null,
+        "default_payment_method": null,
+        "footer": null,
+        "rendering_options": null
+      },
+      "livemode": false,
+      "metadata": {},
+      "name": null,
+      "phone": null,
+      "preferred_locales": [],
+      "shipping": null,
+      "tax_exempt": "none",
+      "test_clock": null
+    }
   }
 ]

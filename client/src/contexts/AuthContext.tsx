@@ -5,6 +5,7 @@ type IUser = string | null
 interface IAuthContextType {
   user: IUser
   setUser: (user: IUser) => void;
+  isLoading: boolean
 }
 
 const AuthContext = createContext<IAuthContextType | undefined>(undefined);
@@ -15,6 +16,7 @@ interface IAuthProviderProps {
 
 export const AuthProvider = ({ children }: IAuthProviderProps) => {
   const [user, setUser] = useState<IUser | null>(null);
+  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
     fetch("http://localhost:3000/auth/check-login", {credentials: "include"})
@@ -25,12 +27,13 @@ export const AuthProvider = ({ children }: IAuthProviderProps) => {
       } else {
         setUser(null)
       }
+      setIsLoading(false)
     })
     .catch(error => console.error("Error checking login status:", error))
   }, []);
 
   return (
-    <AuthContext.Provider value={{user, setUser}}>
+    <AuthContext.Provider value={{user, setUser, isLoading}}>
     {children}
     </AuthContext.Provider>
   )
