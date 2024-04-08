@@ -5,6 +5,7 @@ export const Payment = () => {
           "http://localhost:3000/api/stripe/create-checkout-session",
           {
             method: "POST",
+            credentials: "include"
           }
         );
         
