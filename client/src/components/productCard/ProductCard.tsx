@@ -9,7 +9,8 @@ interface IProductCardProps {
 
 export const ProductCard = ({ product }: IProductCardProps) => {
   const { addToCart } = useCart();
-  const { name, images, currency, unit_amount } = product;
+  const { name, images, default_price } = product;
+  const { currency, unit_amount } = default_price;
   const formattedPrice = `${(unit_amount / 100).toFixed(2)} ${currency.toUpperCase()}`;
   const productImage = images[0] || "path-to-default-image.jpg";  // Provide a fallback for missing images
 

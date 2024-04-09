@@ -3,7 +3,7 @@ export interface IProduct {
   name: string;
   description: string;
   images: string[];
-  default_price: string;
+  default_price: {
   currency: string;
-  unit_amount: number;  
+  unit_amount: number;  }
 }
