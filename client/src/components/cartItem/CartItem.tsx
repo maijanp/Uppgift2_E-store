@@ -1,5 +1,5 @@
-import { useCart } from "../../contexts/CartContext"
-import { IProductCard } from "../../models/IProductCard"
+
+import { IProductCard } from "../../models/IProduct"
 
 
 interface CartItemProps {
