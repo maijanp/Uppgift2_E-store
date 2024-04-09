@@ -6,9 +6,8 @@ export const Confirmation: React.FC = () => {
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
-        // Call verifyPayment only once when the component mounts
         verifyPayment();
-    }, []); // Removed verified from the dependency array
+    }, []); 
 
     const verifyPayment = async () => {
         let sessionId;

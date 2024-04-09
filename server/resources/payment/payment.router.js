@@ -1,9 +1,7 @@
 const express = require('express')
 const router = express.Router()
-const {createCheckoutSession, verifyAndCreateOrder } = require('./payment.controller')
-const { authorize } = require('../auth/auth.controller')
+const {createCheckoutSession } = require('./payment.controller')
 
-router.post('/create-checkout-session', authorize, createCheckoutSession)
-router.get('/verify-payment', verifyAndCreateOrder)
+router.post('/create-checkout-session', createCheckoutSession)
 
 module.exports = router

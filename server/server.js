@@ -5,7 +5,7 @@ const cookieSession = require('cookie-session')
 
 const productsRouter = require("./resources/products/products.router")
 const authRouter = require("./resources/auth/auth.router")
-
+const paymentRouter = require("./resources/payment/payment.router")
 
 const app = express()
 
@@ -15,13 +15,14 @@ app.use(cors({
 }))
 app.use(express.json())
 app.use(cookieSession({
-    secret: "supersecret",
+    secret: "supersecret", 
     maxAge: 1000 * 60 * 30,
 }))
 
 
 app.use("/products", productsRouter)
 app.use("/auth", authRouter)
+app.use("/payment", paymentRouter )
 
 
 app.listen(3000, () => console.log("Server is running.. 🐧"))
