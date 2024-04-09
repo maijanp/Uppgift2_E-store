@@ -1,33 +1,43 @@
+import { useCart } from "../../contexts/CartContext";
+
 export const Payment = () => {
-    const handlePayment = async () => {
-      try {
+  const { cart } = useCart();
+  console.log("Sending cart data:", JSON.stringify({cart}, null, 2));
+
+  const handlePayment = async () => {
+    console.log("Final cart data being sent:", JSON.stringify(cart, null, 2));
+    try {
         const response = await fetch(
-          "http://localhost:3000/api/stripe/create-checkout-session",
-          {
-            method: "POST",
-            credentials: "include"
-          }
+            "http://localhost:3000/payment/create-checkout-session",
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                credentials: "include",
+                body: JSON.stringify({ cart }) 
+            }
         );
         
         if (!response.ok) {
-          throw new Error("Something went wrong when creatng payment session :(");
+            throw new Error("Something went wrong when creating payment session :(");
         }
         const data = await response.json();
-  
+        localStorage.setItem("sessionId", JSON.stringify(data.sessionId));
+
         if (data.url) {
-          window.location = data.url;
+            window.location.href = data.url;
         } else {
-          console.error("No url was returned from server :(");
+            console.error("No url was returned from server :(");
         }
-      } catch (error) {
+    } catch (error) {
         console.error("Error handling payment:", error);
-      }
-    };
-  
-    return (
+    }
+};
+
+  return (
       <>
-        <button onClick={handlePayment}>Cash eller spö!</button>
+          <button onClick={handlePayment}>Cash eller spö!</button>
       </>
-    );
-  };
-  
+  );
+};

@@ -1,23 +1,23 @@
-import { useCart } from "../../contexts/CartContext"
-import { IProductCard } from "../../models/IProductCard"
+
+import { IProduct } from "../../models/IProduct"
 
 
 interface CartItemProps {
-    item: IProductCard,
+    item: IProduct,
 }
 
 export const CartItem = ({item} : CartItemProps) => {
-    if (!item || !item.product || !Array.isArray(item.product.images) || item.product.images.length === 0) {
+    if (!item || !item || !Array.isArray(item.images) || item.images.length === 0) {
         console.error('Invalid item or image data', item);
 
         
         return <div>Product information is missing or incomplete.</div>; // Ger en fallback och undviker krasch
       }
-    const imageUrl = item.product.images[0];
+    const imageUrl = item.images[0];
     return <>
     <div>
-        <div className="imgContainer"><img src={imageUrl} alt={item.product.name} /></div>
-    <h4>{item.product.name}</h4>
+        <div className="imgContainer"><img src={imageUrl} alt={item.name} /></div>
+    <h4>{item.name}</h4>
     <p>{item.unit_amount}</p>    
     </div>
     </>

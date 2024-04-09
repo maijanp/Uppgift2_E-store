@@ -6,6 +6,7 @@ const cookieSession = require('cookie-session')
 const productsRouter = require("./resources/products/products.router")
 const authRouter = require("./resources/auth/auth.router")
 
+
 const app = express()
 
 app.use(cors({
@@ -21,5 +22,6 @@ app.use(cookieSession({
 
 app.use("/products", productsRouter)
 app.use("/auth", authRouter)
+
 
 app.listen(3000, () => console.log("Server is running.. 🐧"))
