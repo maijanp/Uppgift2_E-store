@@ -7,17 +7,18 @@ const createCheckoutSession = async (req, res) => {
     console.log("Request body:", req.body)
     const stripe = initStripe()
     const {cart} = req.body
+    console.log("Cart data:", cart);
     
     const session = await stripe.checkout.sessions.create({
         payment_method_types: ['card'],
         line_items: cart.map(item => ({
           price_data: {
-            currency: 'sek',
+            currency: item.default_price.currency,
             product_data: {
               name: item.name,
               images: item.images,
             },
-            unit_amount: item.unit_amount,
+            unit_amount: item.default_price.unit_amount,
           },
           quantity: item.quantity,
         })),
