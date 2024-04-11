@@ -3,7 +3,6 @@ import { CartItem } from "../cartItem/CartItem"
 
 export const CartList = () => {
     const { cart } = useCart()
-    console.log(cart)
     
     return (
         <div>

@@ -18,7 +18,7 @@ export const CartItem = ({item} : CartItemProps) => {
     <div>
         <div className="imgContainer"><img src={imageUrl} alt={item.name} /></div>
     <h4>{item.name}</h4>
-    <p>{item.unit_amount}</p>    
+    <p>{item.default_price.unit_amount}</p>    
     </div>
     </>
 }

@@ -6,38 +6,39 @@ export const Confirmation: React.FC = () => {
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
-        verifyPayment();
-    }, []); 
+       if (!verified) {
+        console.log('Verify-function starting')
+        
+        const verifySession = async () => {
+            let sessionId;
+            const dataFromLs = localStorage.getItem("sessionId")
 
-    const verifyPayment = async () => {
-        let sessionId;
-        const dataFromLs = localStorage.getItem('sessionId');
-
-        if (dataFromLs) {
-            sessionId = JSON.parse(dataFromLs);
-        }
-
-        try {
-            const response = await fetch(`http://localhost:3000/payment/verify-payment`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ sessionId })
-            });
-            const data = await response.json();
-            console.log(data);
-
-            if (data.verified) {
-                setVerified(data.verified);
-                setIsLoading(false);
-            } else {
-                console.error('Failed to verify payment:', data.error);
-                // Handle error and notify the user
+            if (dataFromLs) {
+                sessionId = JSON.parse(dataFromLs)
             }
-        } catch (error) {
-            console.error('Error verifying payment:', error);
-            // Handle error and notify the user
+
+            const response = await fetch("http://localhost:3000/payment/verify-and-create-order", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({sessionId})
+            })
+
+            const data = await response.json()
+
+            if (response.ok) {
+                setVerified(data.verified)
+                setIsLoading(false)
+            }
         }
-    };
+
+        verifySession()
+       }
+    }, [verified]); 
+
+  
+       
 
     return (
         <div>

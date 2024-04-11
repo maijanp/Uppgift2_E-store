@@ -57,7 +57,6 @@ const login = async (req, res) => {
 }
 
 
-//använd på routes som kräver inloggning
     const authorize = (req, res, next) => {
         if (!req.session.user) {
             return res.status(401).json("You're not logged in")

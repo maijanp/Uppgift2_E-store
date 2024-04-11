@@ -1,13 +1,13 @@
 
 const initStripe = require("../../stripe")
 const express = require('express')
+const fs = require('fs').promises
+const path = require('path')
 
 
 const createCheckoutSession = async (req, res) => {
-    console.log("Request body:", req.body)
     const stripe = initStripe()
     const {cart} = req.body
-    console.log("Cart data:", cart);
     
     const session = await stripe.checkout.sessions.create({
         payment_method_types: ['card'],
@@ -26,8 +26,34 @@ const createCheckoutSession = async (req, res) => {
         success_url: 'http://localhost:5173/confirmation',
         cancel_url: 'http://localhost:5173/cart',
       });
-  
-      res.json({ url: session.url })
+      console.log("Checkout session created:", session.id);
+      res.json({ url: session.url, sessionId: session.id })
 }
 
-module.exports = {createCheckoutSession}
+const verifyAndCreateOrder = async (req, res) => {
+const stripe = initStripe()
+const sessionId = req.body.sessionId
+const session = await stripe.checkout.sessions.retrieve(sessionId)
+
+
+
+if (session.payment_status === "paid") {
+  const lineItems = await stripe.checkout.sessions.listLineItems(sessionId)
+
+  const order = {
+    orderNumber: Math.floor(Math.random() * 100000000),
+    customerEmail: session.customer_email,
+    products: lineItems.data,
+    total: session.amount_total,
+    date: new Date()
+  }
+
+  const orders = JSON.parse(await fs.readFile('./data/orders.json'))
+  orders.push(order)
+  await fs.writeFile('./data/orders.json', JSON.stringify(orders, null, 4))
+
+  res.status(200).json({verified : true})
+}
+}
+
+module.exports = {createCheckoutSession, verifyAndCreateOrder}

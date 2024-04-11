@@ -24,7 +24,8 @@ export const Payment = () => {
         }
         const data = await response.json();
         localStorage.setItem("sessionId", JSON.stringify(data.sessionId));
-
+        console.log("Received sessionId from server:", data.sessionId);
+        debugger;
         if (data.url) {
             window.location.href = data.url;
         } else {
