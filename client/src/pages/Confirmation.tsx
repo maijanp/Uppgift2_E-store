@@ -6,35 +6,41 @@ export const Confirmation: React.FC = () => {
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
-       if (!verified) {
-        console.log('Verify-function starting')
-        
+
+
         const verifySession = async () => {
-            let sessionId;
             const dataFromLs = localStorage.getItem("sessionId")
 
-            if (dataFromLs) {
-                sessionId = JSON.parse(dataFromLs)
+            if (!dataFromLs) {
+               console.error("Session ID is missing")
+               setIsLoading(false)
+               return
             }
 
+            const sessionId = JSON.parse(dataFromLs);
             const response = await fetch("http://localhost:3000/payment/verify-and-create-order", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
                 },
+                credentials: 'include',
                 body: JSON.stringify({sessionId})
             })
 
-            const data = await response.json()
-
             if (response.ok) {
+            const data = await response.json()
                 setVerified(data.verified)
-                setIsLoading(false)
-            }
+                localStorage.removeItem("sessionId")
+                localStorage.removeItem("cart")
+        } else {
+            console.error("Failed to verify the session")
+        } 
+        setIsLoading(false)
+
         }
 
         verifySession()
-       }
+       
     }, [verified]); 
 
   
@@ -42,7 +48,7 @@ export const Confirmation: React.FC = () => {
 
     return (
         <div>
-            <h3>{verified && !isLoading ? "Tack för ditt köp" : "Loading..."}</h3>
+            <h3>{verified && !isLoading ? "Tack för ditt köp! 🌞✅" : "Loading..."}</h3>
         </div>
     );
 };

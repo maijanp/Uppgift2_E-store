@@ -2,12 +2,12 @@
 const initStripe = require("../../stripe")
 const express = require('express')
 const fs = require('fs').promises
-const path = require('path')
+
 
 
 const createCheckoutSession = async (req, res) => {
     const stripe = initStripe()
-    const {cart} = req.body
+    const {cart, customerEmail} = req.body
     
     const session = await stripe.checkout.sessions.create({
         payment_method_types: ['card'],
@@ -22,11 +22,13 @@ const createCheckoutSession = async (req, res) => {
           },
           quantity: item.quantity,
         })),
+        customer_email: customerEmail,
         mode: 'payment',
         success_url: 'http://localhost:5173/confirmation',
         cancel_url: 'http://localhost:5173/cart',
+        allow_promotion_codes: true
       });
-      console.log("Checkout session created:", session.id);
+      console.log("Retrieved session:", session);
       res.json({ url: session.url, sessionId: session.id })
 }
 
