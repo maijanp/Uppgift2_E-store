@@ -14,8 +14,7 @@ export const ProductCatalog = () => {
             try {
                 const response = await fetch('http://localhost:3000/products');
                 const data: IProduct[] = await response.json(); 
-                
-                console.log('Raw data:', data);
+        
                 setProducts(data);
             } catch (error) {
                 console.error('Error fetching products:', error);

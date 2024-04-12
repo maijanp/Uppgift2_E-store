@@ -1,11 +1,15 @@
+import { Navigate } from "react-router-dom";
+import { useAuth } from "../../contexts/AuthContext";
 import { useCart } from "../../contexts/CartContext";
 
 export const Payment = () => {
+
   const { cart } = useCart();
-  console.log("Sending cart data:", JSON.stringify({cart}, null, 2));
+  const { user } = useAuth()
+
+  if (!user)  { return <Navigate to="/Login" />}
 
   const handlePayment = async () => {
-    console.log("Final cart data being sent:", JSON.stringify(cart, null, 2));
     try {
         const response = await fetch(
             "http://localhost:3000/payment/create-checkout-session",
@@ -15,7 +19,7 @@ export const Payment = () => {
                     "Content-Type": "application/json",
                 },
                 credentials: "include",
-                body: JSON.stringify({ cart }) 
+                body: JSON.stringify({ cart: cart, customerEmail: user }) 
             }
         );
         

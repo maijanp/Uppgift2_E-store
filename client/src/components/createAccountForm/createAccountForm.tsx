@@ -21,9 +21,7 @@ const [error, setError] = useState('')
 
       const data = await response.json();
       if (response.ok) {
-        console.log("Account created successful", data);
       } else {
-        console.error("Failed creating account:", data.message);
         setError(data.message)
       }
     } catch (error) {

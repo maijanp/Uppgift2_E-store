@@ -61,6 +61,7 @@ const login = async (req, res) => {
         if (!req.session.user) {
             return res.status(401).json("You're not logged in")
         } else {
+            console.log('You are logged in 🌞')
             next()
         }
     }
