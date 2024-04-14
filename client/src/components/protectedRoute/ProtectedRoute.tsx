@@ -1,18 +1,16 @@
-import { Navigate } from "react-router-dom"
-import { useAuth } from "../../contexts/AuthContext"
-import { ReactNode } from "react"
-
+import { Navigate } from "react-router-dom";
+import { useAuth } from "../../contexts/AuthContext";
+import { ReactNode } from "react";
 
 interface IProtectedRouteProps {
-    children: ReactNode
+  children: ReactNode;
 }
-export const ProtectedRoute = ({children}: IProtectedRouteProps) => {
-    const {user, isLoading} = useAuth() 
-    console.log("User in ProtectedRoute:", user); 
+export const ProtectedRoute = ({ children }: IProtectedRouteProps) => {
+  const { user, isLoading } = useAuth();
 
-    if (isLoading) {
-        return <div>Loading...</div>
-    }
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
 
-    return user ? children : <Navigate to = "/" />
-}
+  return user ? children : <Navigate to="/" />;
+};

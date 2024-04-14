@@ -6,7 +6,7 @@ const stripe = initStripe()
 
 const registerUser = async (req, res) => {
 
-    const {email, password} = req.body
+    const {email, password, firstName, lastName, street, city, zipCode} = req.body
     const users = await fetchUsers()
     const existingUser = users.find(user => user.email === email)
     if (existingUser) {
@@ -17,13 +17,25 @@ const registerUser = async (req, res) => {
 
     try {
         const customer = await stripe.customers.create({
-            email: email
+            email: email,
+            name: `${firstName} ${lastName}`,
+            address: {
+                line1: street,
+                city: city,
+                postal_code: zipCode,
+                country: 'SE'
+            }
         })
 
     const newUser = {
         email,
+        firstName,
+        lastName,
+        street,
+        city,
+        zipCode,
         password: hashedPassword,
-        stripeCustomerId: customer
+        stripeCustomerId: customer.id
     }
 
     users.push(newUser)
@@ -46,8 +58,17 @@ const login = async (req, res) => {
         return res.status(400).json({message: "Wrong email or password"})
     }
 
-    req.session.user = registeredUser
-    res.status(200).json(registeredUser.email)
+    const userData = {
+        email: registeredUser.email,
+        firstName: registeredUser.firstName,
+        lastName: registeredUser.lastName,
+        street: registeredUser.street,
+        city: registeredUser.city,
+        zipCode: registeredUser.zipCode
+    };
+
+    req.session.user =  userData
+    res.status(200).json({loggedIn: true, user: userData})
 }
 
 
@@ -61,17 +82,16 @@ const login = async (req, res) => {
         if (!req.session.user) {
             return res.status(401).json("You're not logged in")
         } else {
-            console.log('You are logged in 🌞')
             next()
         }
     }
 
     const checkLoginStatus = (req, res) => {
-        console.log("Check login status called");
-        if(req.session.user) {
-            res.status(200).json({loggedIn: true, user: req.session.user.email})
+        console.log("Checking login status. Session user data:", req.session.user);
+        if (req.session && req.session.user) {
+            res.status(200).json({ loggedIn: true, user: req.session.user });
         } else {
-            res.status(200).json({loggedIn: false})
+            res.status(200).json({ loggedIn: false });
         }
     }
 

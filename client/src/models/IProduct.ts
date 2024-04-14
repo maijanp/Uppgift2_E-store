@@ -4,6 +4,7 @@ export interface IProduct {
   description: string;
   images: string[];
   default_price: {
-  currency: string;
-  unit_amount: number;  }
+    currency: string;
+    unit_amount: number;
+  };
 }

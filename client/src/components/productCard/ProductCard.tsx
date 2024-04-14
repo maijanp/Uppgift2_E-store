@@ -1,26 +1,30 @@
-import React from 'react';
-import Card from "react-bootstrap/Card";
 import { IProduct } from "../../models/IProduct";
-import { useCart } from "../../contexts/CartContext";
+import { ListGroup, Card } from "react-bootstrap";
+import styles from './ProductCard.module.css'
 
 interface IProductCardProps {
   product: IProduct;
+  onAddToCart: (product: IProduct) => void
 }
 
-export const ProductCard = ({ product }: IProductCardProps) => {
-  const { addToCart } = useCart();
+export const ProductCard = ({ product, onAddToCart }: IProductCardProps) => {
   const { name, images, default_price } = product;
   const { currency, unit_amount } = default_price;
-  const formattedPrice = `${(unit_amount / 100).toFixed(2)} ${currency.toUpperCase()}`;
-  const productImage = images[0] || "path-to-default-image.jpg";  // Provide a fallback for missing images
-
+  const formattedPrice = `${(unit_amount / 100).toFixed(
+    2
+  )} ${currency.toUpperCase()}`;
+  const productImage = images[0];
   return (
-    <Card style={{ width: "33%" }}>
+    <Card style={{ width: "30%", textAlign: "center" }}>
       <Card.Img style={{ width: "100%" }} variant="top" src={productImage} />
       <Card.Body>
         <Card.Title>{name}</Card.Title>
-        <Card.Text>{formattedPrice}</Card.Text>
-        <button onClick={() => addToCart(product)}>Add to cart</button>
+       <ListGroup className="list-group-flush">
+        <ListGroup.Item>{formattedPrice}</ListGroup.Item>
+       </ListGroup>
+     <Card.Body>
+     <button id={styles.btn} onClick={() => onAddToCart(product)}>Lägg i varukorg</button>
+     </Card.Body>
       </Card.Body>
     </Card>
   );

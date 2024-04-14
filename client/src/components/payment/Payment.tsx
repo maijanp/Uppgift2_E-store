@@ -19,7 +19,7 @@ export const Payment = () => {
                     "Content-Type": "application/json",
                 },
                 credentials: "include",
-                body: JSON.stringify({ cart: cart, customerEmail: user }) 
+                body: JSON.stringify({ cart: cart, customerEmail: user.email }) 
             }
         );
         
@@ -28,8 +28,6 @@ export const Payment = () => {
         }
         const data = await response.json();
         localStorage.setItem("sessionId", JSON.stringify(data.sessionId));
-        console.log("Received sessionId from server:", data.sessionId);
-        debugger;
         if (data.url) {
             window.location.href = data.url;
         } else {
@@ -42,7 +40,7 @@ export const Payment = () => {
 
   return (
       <>
-          <button onClick={handlePayment}>Cash eller spö!</button>
+          <button style={{backgroundColor: "#6ae4ff"}} onClick={handlePayment}>Fortsätt till betalning</button>
       </>
   );
 };

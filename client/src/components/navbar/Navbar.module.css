@@ -1,0 +1,41 @@
+
+.cartContainer
+ {
+    position: relative;
+    right: 5rem;
+    width: 50px;
+    cursor: pointer;
+}
+
+#user{
+    width: 200px;
+    padding: 0;
+    margin: 0;
+    margin-left: 50px;
+}
+
+.cartContainer span{
+    color: black;
+    font-weight: bold;
+    text-align: center;
+    background-color: #6ae4ff;
+    width: 24px;
+    height: 24px;
+    border-radius: 100%;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.cartIcon{
+    width: 100%;
+    height: 100%;
+}
+
+.linksContainer{
+    width: 80%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+}

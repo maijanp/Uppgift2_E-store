@@ -1,0 +1,8 @@
+
+.cartContainer {
+    display: flex;
+    flex-direction: column;
+    row-gap: 1em;
+    padding: 2rem;
+    background-color: rgba(128, 128, 128, 0.135);
+}

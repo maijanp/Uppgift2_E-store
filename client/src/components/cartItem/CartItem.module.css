@@ -1,0 +1,12 @@
+.imgContainer{
+    width: 100px;
+}
+
+.imgContainer img {
+    width: 100%;
+}
+
+.cartItem{
+    padding: 1rem;
+    background-color: rgb(255, 255, 255);
+}

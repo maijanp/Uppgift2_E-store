@@ -1,9 +1,12 @@
+import { useNavigate } from "react-router-dom"
+import { useAuth } from "../../contexts/AuthContext"
 import { useCart } from "../../contexts/CartContext"
 
 
 export const LogoutButton = () => {
     const { setCart } = useCart()
-
+    const {setUser} = useAuth()
+    const navigate = useNavigate()
     const handleLogout = async () => {
         try {
             const response = await fetch('http://localhost:3000/auth/logout', {
@@ -11,11 +14,10 @@ export const LogoutButton = () => {
                 credentials: "include"
             })
 
-
             if (response.ok) {
                 setCart([]);
-                localStorage.removeItem('cart');
-                console.log("logout successful")
+                setUser(null)
+                navigate("/")
             } else {
                 console.error('Logout failed')
             }}
@@ -27,6 +29,6 @@ export const LogoutButton = () => {
         }
         
         return <>
-    <button onClick={handleLogout}>Sign out</button>
+    <button style={{backgroundColor: "#6ae4ff", borderRadius: "8px"}} onClick={handleLogout}>Logga ut</button>
     </>
     }
