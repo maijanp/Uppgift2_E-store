@@ -1,12 +1,13 @@
 import { FormEvent, useState } from "react";
-import { Navigate } from "react-router-dom";
+import {  useNavigate } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
 
 export const LoginForm = () => {
 const [email, setEmail] = useState('')
 const [password, setPassword] = useState('')
 const [error, setError] = useState('')
-const { user } = useAuth()
+const { setUser } = useAuth()
+const navigate = useNavigate()
 
 
     const handleLogin = async (e: FormEvent<HTMLFormElement>) => {
@@ -23,7 +24,11 @@ const { user } = useAuth()
 
       const data = await response.json();
       if (response.ok) {
-        console.log("Login Successful", data);
+       setUser(data.user)
+       navigate("/")
+       const redirectTo = localStorage.getItem('redirectTo') || '/'
+       localStorage.removeItem('redirectTo')
+       navigate(redirectTo)
         
       } else {
         console.error("login Failed:", data.message);

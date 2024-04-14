@@ -12,7 +12,6 @@ export const Confirmation: React.FC = () => {
             const dataFromLs = localStorage.getItem("sessionId")
 
             if (!dataFromLs) {
-               console.error("Session ID is missing")
                setIsLoading(false)
                return
             }
@@ -32,6 +31,9 @@ export const Confirmation: React.FC = () => {
                 setVerified(data.verified)
                 localStorage.removeItem("sessionId")
                 localStorage.removeItem("cart")
+                setTimeout(() => {
+                    window.location.href = "/"
+                }, 5000)
         } else {
             console.error("Failed to verify the session")
         } 

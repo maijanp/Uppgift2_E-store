@@ -1,66 +1,12 @@
 [
   {
     "email": "maijapapazi@gmail.com",
-    "password": "$2b$15$iJcvO19doEfkBmrEzpy21eogaLD.GVhE1VozCGkEcg6dwv78bvNp.",
-    "stripeCustomerId": {
-      "id": "cus_PruFPyr0WkYBqX",
-      "object": "customer",
-      "address": null,
-      "balance": 0,
-      "created": 1712314520,
-      "currency": null,
-      "default_source": null,
-      "delinquent": false,
-      "description": null,
-      "discount": null,
-      "email": "maijapapazi@gmail.com",
-      "invoice_prefix": "44B43A16",
-      "invoice_settings": {
-        "custom_fields": null,
-        "default_payment_method": null,
-        "footer": null,
-        "rendering_options": null
-      },
-      "livemode": false,
-      "metadata": {},
-      "name": null,
-      "phone": null,
-      "preferred_locales": [],
-      "shipping": null,
-      "tax_exempt": "none",
-      "test_clock": null
-    }
-  },
-  {
-    "email": "chipspose@live.se",
-    "password": "$2b$15$U.YBvNNefpUSiKvhbFZrqOpaCJ78G0WvHzmWXnkGSjXerlyPXvQcy",
-    "stripeCustomerId": {
-      "id": "cus_Pt86wwagIK5eRO",
-      "object": "customer",
-      "address": null,
-      "balance": 0,
-      "created": 1712596706,
-      "currency": null,
-      "default_source": null,
-      "delinquent": false,
-      "description": null,
-      "discount": null,
-      "email": "chipspose@live.se",
-      "invoice_prefix": "47CC7570",
-      "invoice_settings": {
-        "custom_fields": null,
-        "default_payment_method": null,
-        "footer": null,
-        "rendering_options": null
-      },
-      "livemode": false,
-      "metadata": {},
-      "name": null,
-      "phone": null,
-      "preferred_locales": [],
-      "shipping": null,
-      "tax_exempt": "none",
-      "test_clock": null
-    }
+    "firstName": "Maija",
+    "lastName": "Nyström",
+    "street": "Kyrkogatan 2E",
+    "city": "Karlskrona",
+    "zipCode": "37132",
+    "password": "$2b$15$JM4oY/EBf4nnpbHntjwrKuPPzGnWMdKP71sRUYy5n9GQabZF30PSS",
+    "stripeCustomerId": "cus_PueI5uK2O1Vk35"
   }
 ]
