@@ -16,12 +16,14 @@ interface ICartContextType {
   cart: CartItem[];
   addToCart: (product: IProduct) => boolean;
   setCart: (cart: CartItem[]) => void;
+  removeFromCart: (productId: string) => void;
 }
 
 const initialValue = {
   cart: [],
   addToCart: () => false,
   setCart: () => {},
+  removeFromCart: () => {},
 };
 
 const CartContext = createContext<ICartContextType>(initialValue);
@@ -62,8 +64,14 @@ export const CartProvider = ({ children }: ICartProviderProps) => {
     return isAdded;
   };
 
+  const removeFromCart = (productId: string) => {
+    setCart((prevCart) => {
+      return prevCart.filter((item) => item.product.id !== productId)
+    })
+  }
+
   return (
-    <CartContext.Provider value={{ cart, addToCart, setCart }}>
+    <CartContext.Provider value={{ cart, addToCart, setCart, removeFromCart }}>
       {children}
     </CartContext.Provider>
   );
