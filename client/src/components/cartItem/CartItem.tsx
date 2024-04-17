@@ -5,9 +5,10 @@ import styles from './CartItem.module.css'
 
 interface CartItemProps {
     item: IProduct,
+    onRemove: () => void
 }
 
-export const CartItem = ({item} : CartItemProps) => {
+export const CartItem = ({item, onRemove} : CartItemProps) => {
     const formattedPrice = `${(item.default_price.unit_amount / 100).toFixed(
         2
       )} ${item.default_price.currency.toUpperCase()}`;
@@ -22,6 +23,7 @@ export const CartItem = ({item} : CartItemProps) => {
        <Col> <div className={styles.imgContainer}><img src={imageUrl} alt={item.name} /></div></Col>
     <Col><h5>{item.name}</h5>
     <p>{formattedPrice}</p>  </Col> 
+    <button onClick={onRemove}>Ta bort</button>
     </Row>
     
 }
